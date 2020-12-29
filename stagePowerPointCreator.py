@@ -47,9 +47,10 @@ if __name__ == '__main__':
 
 	# スライドに貼り付けるすべての画像ファイル
 	files = glob(args["--input-path"])
+	fileCount = len(files)
 
 	# 作成するスライドの数
-	slide_count = int(len(files) / 10)
+	slide_count = int(len(files) / 10) + 1
 
 	column = int(args["--column"])
 
@@ -60,7 +61,10 @@ if __name__ == '__main__':
 
 		for j in range(10):
 			# 貼り付ける画像の取得
-			file = files[i * 10 + j]
+			index = i * 10 + j
+			if fileCount <= index:
+				continue
+			file = files[index]
 
 			# 画像を貼り付ける位置
 			x = start_x + j % column * offset_x
